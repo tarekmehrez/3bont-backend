@@ -1,0 +1,11 @@
+http://www.goal.com,http://www.goal.com/en/news/archive/$,1,5,class,day-news first-child
+http://www.goal.com,http://www.goal.com/ar/news/archive/$,1,5,class,day-news first-child
+http://bleacherreport.com,http://bleacherreport.com/world-football,-1,-1,class,cell articleStream selected
+http://www.beinsports.com,http://www.beinsports.com/en/football/news/$,5,class,content-gallery ptl
+http://www.espnfc.com,http://www.espnfc.com/news,-1,id,feed-content-items
+http://ar.fifa.com,http://ar.fifa.com/news/library/all-news/index,page=$.htmx,1,10,class,dcm-list thumblist-lnd-3 grid-view list-news full-details
+http://fifa.com,http://fifa.com/news/library/all-news/index,page=$.htmx,1,5,class,dcm-list thumblist-lnd-3 grid-view list-news full-details
+http://www.filgoal.com/arabic,http://www.filgoal.com/arabic/allnews.aspx?CatID=1#$,1,5,class,AllNews SeeAlso
+http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$',1,1,class,posts-page clearfix first-page
+http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$',2,5,class,posts-page clearfix
+http://www.101greatgoals.com,http://www.101greatgoals.com/blog/page/$,1,5,id,content
