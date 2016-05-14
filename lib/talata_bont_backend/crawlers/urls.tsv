@@ -1,3 +1,4 @@
+domain,url,starting_page,ending_page,id_or_class_of_div, id_or_class_name
 http://www.goal.com,http://www.goal.com/en/news/archive/$,1,5,class,day-news first-child
 http://www.goal.com,http://www.goal.com/ar/news/archive/$,1,5,class,day-news first-child
 http://bleacherreport.com,http://bleacherreport.com/world-football,-1,-1,class,cell articleStream selected
@@ -9,3 +10,4 @@ http://www.filgoal.com/arabic,http://www.filgoal.com/arabic/allnews.aspx?CatID=1
 http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$',1,1,class,posts-page clearfix first-page
 http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$',2,5,class,posts-page clearfix
 http://www.101greatgoals.com,http://www.101greatgoals.com/blog/page/$,1,5,id,content
+http://hihi2.com/,http://hihi2.com/category/football-news/page/$,1,5,content-loop
