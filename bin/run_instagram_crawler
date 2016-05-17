@@ -1,0 +1,19 @@
+#!/usr/bin/python
+import config
+
+from talata_bont_backend.crawlers import CrawlersWrapper
+
+
+def main():
+    config_dict = config.get_config_dict()
+    instagram_args = config_dict['instagram']
+
+    crawler = CrawlersWrapper()
+    crawler.crawl_instagram(
+        access_token=instagram_args['access_token'],
+        client_secret=instagram_args['client_secret'],
+        users_txt=instagram_args['accounts_txt_file'],
+        users_json=instagram_args['accounts_json_file'])
+
+if __name__ == "__main__":
+    main()

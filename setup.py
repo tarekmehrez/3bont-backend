@@ -20,10 +20,11 @@ config = dict(
     # installation requirements
 
     # package
-    package_dir = {'': 'lib'},
-    packages = ['talata_bont_backend',
+    package_dir={'': 'lib'},
+    packages=['talata_bont_backend',
                 'talata_bont_backend.crawlers',
-                'talata_bont_backend.util']
+                'talata_bont_backend.util',
+                'talata_bont_backend.config']
 )
 
 setup(**config)

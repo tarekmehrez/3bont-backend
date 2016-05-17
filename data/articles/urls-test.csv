@@ -1,0 +1,2 @@
+domain,url,starting_page,ending_page,tag,attr,value
+http://www.yallakora.com/,http://www.yallakora.com/News/MoreBigListingNews.aspx?page=$,1,10,div,id,dvposts

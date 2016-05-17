@@ -1,0 +1,4 @@
+*.pyc
+build/
+dist/
+talata_bont_backend.egg-info/

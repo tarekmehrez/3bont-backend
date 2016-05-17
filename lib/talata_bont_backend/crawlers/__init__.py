@@ -1,1 +1,4 @@
+from crawlers_wrapper import CrawlersWrapper
 from articles_crawler import ArticlesCrawler
+from instagram_crawler import InstagramCrawler
+from twitter_crawler import TwitterCrawler

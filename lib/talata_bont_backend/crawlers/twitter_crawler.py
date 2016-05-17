@@ -1,0 +1,93 @@
+"""
+Contains the TwitterCrawler class as part of the crawler package.
+"""
+import tweepy
+from talata_bont_backend.util import log
+
+log.init_logger()
+logger = log.get_logger()
+
+
+class TwitterCrawler(object):
+
+    """
+    Crawl data in mentioned twitter accounts.
+    """
+
+    def __init__(self,
+                 consumer_key,
+                 consumer_secret,
+                 access_token,
+                 access_token_secret):
+        """
+        Init twitter api.
+
+        Args: All Twitter API-related arguments as read from the config file
+            consumer_key (str),
+            consumer_secret (str),
+            access_token (str),
+            access_token_secret (str)
+        """
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(access_token, access_token_secret)
+
+        self._api = tweepy.API(auth)
+
+    def run(self, accounts):
+        """
+        Run crawler for twitter accounts.
+        """
+        for account in accounts:
+            logger.debug("Retrieving data for " + str(account))
+            tweets = self._api.user_timeline(account)
+
+            collected_tweets = self._parse_tweets_for_account(account, tweets)
+
+        return collected_tweets
+
+    def _parse_tweets_for_account(self, account, tweets):
+        """
+        Given a twitter account, get his latest tweets.
+
+        Args:
+            account (twitter API obj)
+            tweets (list[twitter API obj])
+
+        Return:
+            list[dict]: parsed tweets
+        """
+        collected_tweets = []
+        for tweet in tweets:
+
+            curr_item = {}
+            curr_item['lang'] = tweet.lang
+            curr_item['text'] = tweet.text
+            curr_item['account'] = tweet.user.name
+            curr_item['account_image'] = tweet.user.profile_image_url
+
+            curr_item['tags'] = []
+            if len(tweet.entities['hashtags']) > 0:
+
+                for tag in tweet.entities['hashtags']:
+                    curr_item['tags'].append(tag['text'])
+
+            curr_item['date'] = tweet.created_at
+
+            curr_item[
+                'url'] = "https://twitter.com/%s/status/%s", (str(tweet.user.
+                                                                  screen_name),
+                                                              str(tweet.id))
+
+            curr_item['media_url'] = None
+            if 'media' in tweet.entities:
+                curr_item['media_url'] = tweet.entities[
+                    'media'][0]['media_url_https']
+
+            curr_item['retweets'] = tweet.retweet_count
+            curr_item['favs'] = tweet.favorite_count
+            curr_item['tweet_id'] = tweet.id
+
+            logger.info(curr_item)
+            collected_tweets.append(curr_item)
+
+        return collected_tweets
