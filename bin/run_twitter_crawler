@@ -7,10 +7,14 @@ from talata_bont_backend.crawlers import CrawlersWrapper
 def main():
     config_dict = config.get_config_dict()
     twitter_args = config_dict['twitter']
+    db_args = config_dict['mongodb']
 
-    crawler = CrawlersWrapper()
+    crawler = CrawlersWrapper(host=db_args['host'],
+                              port=int(db_args['port']),
+                              db_name=db_args['db_name'])
+
+    print twitter_args.items()
     crawler.crawl_twitter(
-
         consumer_key=twitter_args['consumer_key'],
         consumer_secret=twitter_args['consumer_secret'],
 

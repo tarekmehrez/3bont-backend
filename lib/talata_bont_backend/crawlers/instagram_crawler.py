@@ -15,17 +15,21 @@ class InstagramCrawler(object):
     Crawl data in mentioned instagram accounts.
     """
 
-    def __init__(self, access_token, client_secret):
+    def __init__(self, access_token, client_secret, db_interface):
         """
         Init instagram crawler, and the api object.
 
         Args:
             access_token (str): instagram api access token
             client_secret (str): instagram api secret client
+            db_interface (MongoInterface)
+
         """
         self._api = InstagramAPI(
             access_token=access_token,
             client_secret=client_secret)
+
+        self._db_interface = db_interface
 
     def fetch_ids(self, accounts):
         """
@@ -68,11 +72,9 @@ class InstagramCrawler(object):
             list: fetched images
         """
         self._user_dicts = users
-        fetched_images = []
 
         for user in self._user_dicts:
-            fetched_for_user = self._fetch_for_user(user)
-            fetched_images.append(fetched_for_user)
+            self._fetch_for_user(user)
 
     def _fetch_for_user(self, username):
         """
@@ -84,18 +86,14 @@ class InstagramCrawler(object):
         Returns:
             list: fetched images
         """
-        logger.debug('retrieving data for %s', str(username))
+        logger.info('retrieving data for %s', str(username))
 
         recent_media, next_ = self._api.user_recent_media(
             user_id=self._user_dicts[username]['id'])
 
-        fetched_images = []
         for media_item in recent_media:
             parsed_item = self._parse_media_item(media_item, username)
-
-            fetched_images.append(parsed_item)
-
-        return fetched_images
+            self._db_interface.insert_one('instagram_posts', parsed_item)
 
     def _parse_media_item(self, media_item, username):
         """

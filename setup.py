@@ -23,6 +23,7 @@ config = dict(
     package_dir={'': 'lib'},
     packages=['talata_bont_backend',
                 'talata_bont_backend.crawlers',
+                'talata_bont_backend.db',
                 'talata_bont_backend.util',
                 'talata_bont_backend.config']
 )

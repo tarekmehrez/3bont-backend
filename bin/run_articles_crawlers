@@ -6,9 +6,14 @@ from talata_bont_backend.crawlers import CrawlersWrapper
 
 def main():
     config_dict = config.get_config_dict()
-    articles_args = config_dict['articles']
 
-    crawler = CrawlersWrapper()
+    articles_args = config_dict['articles']
+    db_args = config_dict['mongodb']
+
+    crawler = CrawlersWrapper(host=db_args['host'],
+                              port=int(db_args['port']),
+                              db_name=db_args['db_name'])
+
     crawler.crawl_articles(articles_args['urls_file'])
 
 if __name__ == "__main__":

@@ -15,6 +15,8 @@ lib/talata_bont_backend/crawlers/fb_crawler.py
 lib/talata_bont_backend/crawlers/instagram_crawler.py
 lib/talata_bont_backend/crawlers/twitter_crawler.py
 lib/talata_bont_backend/crawlers/youtube_crawler.py
+lib/talata_bont_backend/db/__init__.py
+lib/talata_bont_backend/db/mongo_interface.py
 lib/talata_bont_backend/util/__init__.py
 lib/talata_bont_backend/util/io.py
 lib/talata_bont_backend/util/log.py

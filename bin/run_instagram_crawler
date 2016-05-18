@@ -6,9 +6,13 @@ from talata_bont_backend.crawlers import CrawlersWrapper
 
 def main():
     config_dict = config.get_config_dict()
-    instagram_args = config_dict['instagram']
 
-    crawler = CrawlersWrapper()
+    instagram_args = config_dict['instagram']
+    db_args = config_dict['mongodb']
+
+    crawler = CrawlersWrapper(host=db_args['host'],
+                              port=int(db_args['port']),
+                              db_name=db_args['db_name'])
     crawler.crawl_instagram(
         access_token=instagram_args['access_token'],
         client_secret=instagram_args['client_secret'],

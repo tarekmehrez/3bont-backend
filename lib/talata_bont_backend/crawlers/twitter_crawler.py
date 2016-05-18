@@ -18,32 +18,39 @@ class TwitterCrawler(object):
                  consumer_key,
                  consumer_secret,
                  access_token,
-                 access_token_secret):
+                 access_token_secret,
+                 db_interface):
         """
         Init twitter api.
 
-        Args: All Twitter API-related arguments as read from the config file
-            consumer_key (str),
-            consumer_secret (str),
-            access_token (str),
-            access_token_secret (str)
+        Args:
+            consumer_key (str) [Twitter API]
+            consumer_secret (str) [Twitter API]
+            access_token (str)  [Twitter API]
+            access_token_secret (str)  [Twitter API]
+            db_interface (MongoInterface)
+
         """
         auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
 
         self._api = tweepy.API(auth)
 
+        self._db_interface = db_interface
+
     def run(self, accounts):
         """
         Run crawler for twitter accounts.
         """
         for account in accounts:
-            logger.debug("Retrieving data for " + str(account))
-            tweets = self._api.user_timeline(account)
+            logger.info("Retrieving data for " + str(account))
+            try:
+                tweets = self._api.user_timeline(account)
+            except:
+                logger.error("%s does not exist as an account", str(account))
+                continue
 
-            collected_tweets = self._parse_tweets_for_account(account, tweets)
-
-        return collected_tweets
+            self._parse_tweets_for_account(account, tweets)
 
     def _parse_tweets_for_account(self, account, tweets):
         """
@@ -56,7 +63,6 @@ class TwitterCrawler(object):
         Return:
             list[dict]: parsed tweets
         """
-        collected_tweets = []
         for tweet in tweets:
 
             curr_item = {}
@@ -87,7 +93,4 @@ class TwitterCrawler(object):
             curr_item['favs'] = tweet.favorite_count
             curr_item['tweet_id'] = tweet.id
 
-            logger.info(curr_item)
-            collected_tweets.append(curr_item)
-
-        return collected_tweets
+            self._db_interface.insert_one('tweets', curr_item)

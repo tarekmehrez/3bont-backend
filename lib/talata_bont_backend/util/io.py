@@ -1,5 +1,5 @@
 """
-Containts the IOLayer class as part of the util subpackage.
+Contains the IOLayer class as part of the util subpackage.
 """
 import os
 import csv
