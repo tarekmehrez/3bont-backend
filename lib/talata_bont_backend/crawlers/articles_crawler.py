@@ -22,6 +22,15 @@ class ArticlesCrawler(object):
     Crawl a given url and get all articles in this url.
     """
 
+    def __init__(self, db_interface):
+        """
+        Init ArticlesCrawler and db_interface.
+
+        Args:
+            db_interface (MongoInterface)
+        """
+        self._db_interface = db_interface
+
     def run(self, articles_limit, *current_url_args):
         """
         Crawl and parse articles in the given url.
@@ -31,6 +40,8 @@ class ArticlesCrawler(object):
 
             current_url_args (tuple):
             (
+                src (str): news source name
+
                 domain (str): news sources' domain
 
                 url (str): url to the page listing articles
@@ -40,7 +51,7 @@ class ArticlesCrawler(object):
             )
 
         """
-        domain, url, tag, attr_val_dict = current_url_args
+        self._src, domain, url, tag, attr_val_dict = current_url_args
         logger.info('fetching articles for: %s', url)
 
         articles_links = self._get_links(domain, url, tag, attr_val_dict)
@@ -49,13 +60,10 @@ class ArticlesCrawler(object):
         if articles_limit:
             articles_links = articles_links[:articles_limit]
 
-        parsed_articles = []
         for link in articles_links:
 
             logger.info('fetching %s', link)
-            parsed_articles.append(self._fetch_article(link))
-
-        return parsed_articles
+            self._fetch_article(link)
 
     def _get_links(self, *current_url_args):
         """
@@ -112,27 +120,28 @@ class ArticlesCrawler(object):
         Args:
             url (str): url of the article
         """
-        aricle = self._parse_article(url)
+        article = self._parse_article(url)
 
-        if not aricle['text']:
+        if not article['text']:
 
             try:
                 alternative_text = eatiht.extract(url)
-                aricle['text'] = alternative_text
+                article['text'] = alternative_text
 
             except:
                 logger.info('%s dropped', url)
                 return
 
-        if not (aricle['title'] or aricle['text']):
+        if not (article['title'] or article['text']):
             logger.info('%s dropped', url)
             return
 
-        aricle = self._clean_dict(aricle)
+        article = self._clean_dict(article)
 
-        return aricle
-
-        # TODO: dump in db
+        article['src'] = self._src
+        article['type'] = 'article'
+        self._db_interface.insert_one('articles', article)
+        self._db_interface.insert_one('timeline_items', article)
 
     def _parse_article(self, url):
         """

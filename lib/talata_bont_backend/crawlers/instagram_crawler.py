@@ -92,8 +92,7 @@ class InstagramCrawler(object):
             user_id=self._user_dicts[username]['id'])
 
         for media_item in recent_media:
-            parsed_item = self._parse_media_item(media_item, username)
-            self._db_interface.insert_one('instagram_posts', parsed_item)
+            self._parse_media_item(media_item, username)
 
     def _parse_media_item(self, media_item, username):
         """
@@ -117,14 +116,13 @@ class InstagramCrawler(object):
 
         parsed_media_item['lang'] = 'en'
         parsed_media_item['date'] = media_item.created_time
-        parsed_media_item['src'] = 'instagram'
 
         parsed_media_item['tags'] = []
         for tag in media_item.tags:
             parsed_media_item['tags'].append(str(tag).split(' ')[1])
 
         parsed_media_item['url'] = media_item.link
-        parsed_media_item['type'] = media_item.type
+        parsed_media_item['media_type'] = media_item.type
 
         if media_item.type == 'image':
             parsed_media_item['img_vid_src'] = media_item.images[
@@ -136,4 +134,8 @@ class InstagramCrawler(object):
         parsed_media_item['likes'] = media_item.like_count
         parsed_media_item['media_id'] = media_item.id
 
-        return parsed_media_item
+        parsed_media_item['src'] = 'instagram'
+        parsed_media_item['type'] = 'social_media'
+
+        self._db_interface.insert_one('timeline_items', parsed_media_item)
+        self._db_interface.insert_one('instagram_post', parsed_media_item)

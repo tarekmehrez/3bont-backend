@@ -93,4 +93,8 @@ class TwitterCrawler(object):
             curr_item['favs'] = tweet.favorite_count
             curr_item['tweet_id'] = tweet.id
 
+            curr_item['type'] = 'social_media'
+            curr_item['src'] = 'twitter'
+
             self._db_interface.insert_one('tweets', curr_item)
+            self._db_interface.insert_one('timeline_items', curr_item)

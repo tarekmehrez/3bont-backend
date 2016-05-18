@@ -1,0 +1,44 @@
+import config
+
+from bson import json_util
+
+
+from flask import Flask, Response, request
+import json
+from talata_bont_backend.db import MongoInterface
+
+app = Flask(__name__)
+
+config_dict = config.get_config_dict()
+db_args = config_dict['mongodb']
+
+db = MongoInterface(db_args['host'],
+                    int(db_args['port']),
+                    db_args['db_name'])
+
+
+@app.route('/timeline', methods=['GET'])
+def api_timeline():
+    items = list(db.find('timeline_items', {}, True))
+    data = json.dumps(items, default=json_util.default)
+    resp = Response(data, status=200, mimetype='application/json')
+
+    return resp
+
+
+@app.route('/timeline/filter/', methods=['GET'])
+def api_timeline_filtered():
+    if 'src' in request.args:
+        items = list(db.find('timeline_items', {
+                     'src': request.args['src']}, True))
+    elif 'type' in request.args:
+        items = list(db.find('timeline_items', {
+                     'type': request.args['type']}, True))
+
+    data = json.dumps(items, default=json_util.default)
+    resp = Response(data, status=200, mimetype='application/json')
+
+    return resp
+
+if __name__ == '__main__':
+    app.run()

@@ -1,20 +1,20 @@
-domain,url,starting_page,ending_page,tag,attr,value
-http://www.goal.com,http://www.goal.com/en/news/archive/$,1,5,div,class,day-news first-child
-http://www.goal.com,http://www.goal.com/ar/news/archive/$,1,5,div,class,day-news first-child
-http://bleacherreport.com,http://bleacherreport.com/world-football,-1,-1,div,class,cell articleStream selected
-http://www.beinsports.com,http://www.beinsports.com/en/football/news/$,1,5,div,class,content-gallery ptl
-http://www.espnfc.com,http://www.espnfc.com/news,-1,-1,div,id,feed-content-items
-http://ar.fifa.com,"http://ar.fifa.com/news/library/all-news/index,page=$.htmx",1,10,div,class,dcm-list thumblist-lnd-3 grid-view list-news full-details 
-http://fifa.com,"http://fifa.com/news/library/all-news/index,page=$.htmx",1,5,div,class,dcm-list thumblist-lnd-3 grid-view list-news full-details 
-http://www.filgoal.com/arabic,http://www.filgoal.com/arabic/allnews.aspx?CatID=1#$,1,5,div,class,AllNews SeeAlso
-http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$,1,5,div,class,posts-page clearfix first-page
-http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$,2,5,div,class,posts-page clearfix 
-http://www.101greatgoals.com,http://www.101greatgoals.com/blog/page/$,1,5,div,id,content
-http://hihi2.com/,http://hihi2.com/category/football-news/page/$,1,5,div,id,content-loop
-http://kora.youm7.com/, http://kora.youm7.com/,-1,-1,div,class,container bodyC
-http://www.korabia.com/,http://www.korabia.com/News/MoreGeneralNews?period=&isMostViewed=%D8%A7%D9%84%D8%A3%D8%AD%D8%AF%D8%AB&page=$,1,5,ul,class,all-news-list
-http://www.skysports.com/football/news,http://www.skysports.com/football/news,-1,-1,div,class,grid__col site-layout-secondary__col1 
-http://talksport.com/football,http://talksport.com/football?page=$,1,5,div,class,region region-content
-http://www.teamtalk.com/,http://www.teamtalk.com/all-the-news/page/$,1,5,div,class,content
-https://www.whoscored.com/,https://www.whoscored.com/Editorial?page=$,1,5,ul,class,ws-editorial-list-items
-http://www.yallakora.com/,http://www.yallakora.com/News/MoreBigListingNews.aspx?page=$,1,10,div,id,dvposts
+src,domain,url,starting_page,ending_page,tag,attr,value
+goal_en,http://www.goal.com,http://www.goal.com/en/news/archive/$,1,5,div,class,day-news first-child
+goal_ar,http://www.goal.com,http://www.goal.com/ar/news/archive/$,1,5,div,class,day-news first-child
+bleacher_report,http://bleacherreport.com,http://bleacherreport.com/world-football,-1,-1,div,class,cell articleStream selected
+bein_sports,http://www.beinsports.com,http://www.beinsports.com/en/football/news/$,1,5,div,class,content-gallery ptl
+espnfc,http://www.espnfc.com,http://www.espnfc.com/news,-1,-1,div,id,feed-content-items
+fifa_ar,http://ar.fifa.com,"http://ar.fifa.com/news/library/all-news/index,page=$.htmx",1,10,div,class,dcm-list thumblist-lnd-3 grid-view list-news full-details 
+fifa_en,http://fifa.com,"http://fifa.com/news/library/all-news/index,page=$.htmx",1,5,div,class,dcm-list thumblist-lnd-3 grid-view list-news full-details 
+filgoal,http://www.filgoal.com/arabic,http://www.filgoal.com/arabic/allnews.aspx?CatID=1#$,1,5,div,class,AllNews SeeAlso
+footyroom,http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$,1,5,div,class,posts-page clearfix first-page
+footyroom,http://footyroom.com,http://footyroom.com/api/2.0/posts.php?page=$,2,5,div,class,posts-page clearfix 
+greatgoals,http://www.101greatgoals.com,http://www.101greatgoals.com/blog/page/$,1,5,div,id,content
+hihi2,http://hihi2.com/,http://hihi2.com/category/football-news/page/$,1,5,div,id,content-loop
+youm7,http://kora.youm7.com/, http://kora.youm7.com/,-1,-1,div,class,container bodyC
+korabia,http://www.korabia.com/,http://www.korabia.com/News/MoreGeneralNews?period=&isMostViewed=%D8%A7%D9%84%D8%A3%D8%AD%D8%AF%D8%AB&page=$,1,5,ul,class,all-news-list
+skysports,http://www.skysports.com/football/news,http://www.skysports.com/football/news,-1,-1,div,class,grid__col site-layout-secondary__col1 
+talksport,http://talksport.com/football,http://talksport.com/football?page=$,1,5,div,class,region region-content
+teamtalk,http://www.teamtalk.com/,http://www.teamtalk.com/all-the-news/page/$,1,5,div,class,content
+whoscored,https://www.whoscored.com/,https://www.whoscored.com/Editorial?page=$,1,5,ul,class,ws-editorial-list-items
+yallakora,http://www.yallakora.com/,http://www.yallakora.com/News/MoreBigListingNews.aspx?page=$,1,10,div,id,dvposts
