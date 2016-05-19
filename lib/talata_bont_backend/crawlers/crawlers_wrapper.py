@@ -45,28 +45,34 @@ class CrawlersWrapper(object):
         crawler = ArticlesCrawler(self._db_interface)
 
         for news_source in news_sources:
-            logger.info('Crwaling News Source: %s', news_source['domain'])
+            logger.info('Crwaling News Source: %s', news_source['src'])
 
             starting_page = int(news_source['starting_page'])
             ending_page = int(news_source['ending_page'])
 
-            if starting_page == -1 or ending_page == -1:
-                crawler.run(0,
-                            news_source['domain'],
-                            news_source['url'],
-                            news_source['tag'],
-                            {news_source['attr']:
-                             news_source['value']})
-
-            else:
-                for page in xrange(starting_page, ending_page + 1):
+            try:
+                if starting_page == -1 or ending_page == -1:
                     crawler.run(0,
+                                news_source['src'],
                                 news_source['domain'],
-                                news_source['url'].replace(
-                                    '$', str(page)),
+                                news_source['url'],
                                 news_source['tag'],
                                 {news_source['attr']:
                                  news_source['value']})
+
+                else:
+                    for page in xrange(starting_page, ending_page + 1):
+                        crawler.run(0,
+                                    news_source['src'],
+                                    news_source['domain'],
+                                    news_source['url'].replace(
+                                        '$', str(page)),
+                                    news_source['tag'],
+                                    {news_source['attr']:
+                                     news_source['value']})
+            except:
+                logger.error("%s CRASHED", news_source['src'])
+                continue
 
     def crawl_instagram(
             self,
