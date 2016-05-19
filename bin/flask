@@ -17,10 +17,15 @@ db = MongoInterface(db_args['host'],
                     db_args['db_name'])
 
 
-@app.route('/timeline', methods=['GET'])
-def api_timeline():
+@app.route('/timeline/page_num', methods=['GET'])
+def api_timeline(page_num):
     items = list(db.find('timeline_items', {}, True))
     data = json.dumps(items, default=json_util.default)
+    if page_num == 1:
+        data = data[1:page_num * 10]
+    else:
+        data = data[(page_num - 1) * 10:page_num * 10]
+
     resp = Response(data, status=200, mimetype='application/json')
 
     return resp
@@ -42,3 +47,7 @@ def api_timeline_filtered():
 
 if __name__ == '__main__':
     app.run()
+
+1 - 10
+10 - 20
+20 - 30

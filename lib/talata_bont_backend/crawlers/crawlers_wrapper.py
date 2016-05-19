@@ -52,7 +52,7 @@ class CrawlersWrapper(object):
 
             try:
                 if starting_page == -1 or ending_page == -1:
-                    crawler.run(2,
+                    crawler.run(0,
                                 news_source['src'],
                                 news_source['domain'],
                                 news_source['url'],
@@ -62,7 +62,7 @@ class CrawlersWrapper(object):
 
                 else:
                     for page in xrange(starting_page, ending_page + 1):
-                        crawler.run(2,
+                        crawler.run(0,
                                     news_source['src'],
                                     news_source['domain'],
                                     news_source['url'].replace(

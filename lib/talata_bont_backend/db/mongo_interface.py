@@ -25,6 +25,7 @@ class MongoInterface:
             db_name (str)
         """
         self._client = pymongo.MongoClient(host, port)
+
         self._db = self._client[db_name]
 
     def insert_one(self, collection_name, item):
