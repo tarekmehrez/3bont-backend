@@ -17,13 +17,21 @@ db = MongoInterface(db_args['host'],
                     db_args['db_name'])
 
 
-@app.route('/timeline/<int:page_num>')
-def api_timeline(page_num):
-    items = list(db.find('timeline_items', {}, True))
+def page(items, page_num):
+
     if page_num == 1:
         items = items[1:page_num * 10]
     else:
         items = items[(page_num - 1) * 10:page_num * 10]
+
+    return items
+
+
+@app.route('/timeline/<int:page_num>')
+def api_timeline(page_num):
+    items = list(db.find('timeline_items', {}, True))
+
+    items = page(items, page_num)
 
     data = json.dumps(items, default=json_util.default)
 
@@ -32,8 +40,8 @@ def api_timeline(page_num):
     return resp
 
 
-@app.route('/timeline/filter/', methods=['GET'])
-def api_timeline_filtered():
+@app.route('/timeline/filter/<int:page_num>', methods=['GET'])
+def api_timeline_filtered(page_num):
     if 'src' in request.args:
         items = list(db.find('timeline_items', {
                      'src': request.args['src']}, True))
@@ -41,10 +49,12 @@ def api_timeline_filtered():
         items = list(db.find('timeline_items', {
                      'type': request.args['type']}, True))
 
+    items = page(items, page_num)
+
     data = json.dumps(items, default=json_util.default)
     resp = Response(data, status=200, mimetype='application/json')
 
     return resp
 
 if __name__ == '__main__':
-    app.run(host='46.101.101.104')
+    app.run(host=46.101.101.104)
